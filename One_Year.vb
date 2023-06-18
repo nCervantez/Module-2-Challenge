@@ -4,13 +4,15 @@ Sub Stock_Cleanup()
         Dim TSVolume As Double
         Dim StockTableRow As Integer
         Dim Ticker As String
-        Dim YearlyChange As Integer
-        Dim Percent As Integer
-        Dim YearOpen As Integer
-        Dim YearClose As Integer
-        Dim YearChange As Integer
+        Dim YearlyChange As Double
+        Dim YearOpen As Double
+        Dim YearClose As Double
+        Dim YearChange As Double
+        Dim openprice As Boolean
         
         
+        'Variable to have the for loop grab the first iteration of the ticker
+        openprice = False
         
         'This will be called on later in the code. Starts the row at 2 to avoid the column Headers
         StockTableRow = 2
@@ -51,7 +53,18 @@ Sub Stock_Cleanup()
                 Range("L" & StockTableRow).Value = TSVolume
                 
                 Range("J" & StockTableRow).Value = YearChange
-                
+                    
+                    'Conditional formatting to color cells based on gain or loss on yearly change
+                    If Range("J" & StockTableRow).Value < 0 Then
+                        
+                        Range("J" & StockTableRow).Interior.ColorIndex = 3
+                    
+                    Else
+                    
+                        Range("J" & StockTableRow).Interior.ColorIndex = 4
+                        
+                    End If
+                    
                 Range("K" & StockTableRow).Value = (YearChange / YearOpen) * 100
                 
                 'Will reset the variables to be used for the next ticker
@@ -64,6 +77,9 @@ Sub Stock_Cleanup()
                 YearChange = 0
                 
                 TSVolume = 0
+                
+                'reset the openprice variable to allow for next ticker to capture year open price
+                openprice = False
             
             Else
             
@@ -71,7 +87,14 @@ Sub Stock_Cleanup()
                 'and will capture the year open volume to be used in
                 'calculations later
                 TSVolume = TSVolume + Cells(i, 7).Value
-                YearOpen = Cells(i, 3).Value
+                'This will grab the open price in each loop then will not function until the next ticker is being used
+                If Not openprice Then
+                    
+                    YearOpen = Cells(i, 3).Value
+                    openprice = True
+                
+                End If
+                
             
             End If
             
@@ -79,4 +102,6 @@ Sub Stock_Cleanup()
         
     
 End Sub
+
+
 
