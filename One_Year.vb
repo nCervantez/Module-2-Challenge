@@ -1,11 +1,15 @@
 Sub Stock_Cleanup()
-    
+
         'Setting the necessary variables for this script
         Dim TSVolume As Double
         Dim StockTableRow As Integer
         Dim Ticker As String
         Dim YearlyChange As Integer
         Dim Percent As Integer
+        Dim YearOpen As Integer
+        Dim YearClose As Integer
+        Dim YearChange As Integer
+        
         
         
         'This will be called on later in the code. Starts the row at 2 to avoid the column Headers
@@ -32,6 +36,12 @@ Sub Stock_Cleanup()
             'and will reset to begin counting for the next ticker
             If Cells(i + 1, 1).Value <> Cells(i, 1).Value Then
             
+                'This will calculate the change in the yearl open and yearly
+                'close values for the ticker
+                YearClose = Cells(i, 6).Value
+                
+                YearChange = YearClose - YearOpen
+                
                 Ticker = Cells(i, 1).Value
                 
                 TSVolume = TSVolume + Cells(i, 7).Value
@@ -40,14 +50,28 @@ Sub Stock_Cleanup()
                 
                 Range("L" & StockTableRow).Value = TSVolume
                 
+                Range("J" & StockTableRow).Value = YearChange
+                
+                Range("K" & StockTableRow).Value = (YearChange / YearOpen) * 100
+                
+                'Will reset the variables to be used for the next ticker
                 StockTableRow = StockTableRow + 1
+                
+                YearOpen = 0
+                
+                YearClose = 0
+                
+                YearChange = 0
                 
                 TSVolume = 0
             
             Else
             
                 'Will add the daily stock volume if the tickers are the same
+                'and will capture the year open volume to be used in
+                'calculations later
                 TSVolume = TSVolume + Cells(i, 7).Value
+                YearOpen = Cells(i, 3).Value
             
             End If
             
