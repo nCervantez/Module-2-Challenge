@@ -111,7 +111,10 @@ Sub Stock_Cleanup()
         Dim Max As Double
         Dim Min As Double
         Dim MaxVolume As Double
+        'Added seperate tickers to test
         Dim Ticker2 As String
+        Dim Ticker3 As String
+        Dim Ticker4 As String
         Set PercentR = Range("K2", "K" & LastRowPercent)
         Set VolR = Range("L2", "L" & LastRowStock)
         'Setting the greatest table
@@ -128,7 +131,7 @@ Sub Stock_Cleanup()
         
         Max = Application.WorksheetFunction.Max(PercentR)
         MsgBox (Max)
-        Min = Application.WorksheetFunction.Max(PercentR)
+        Min = Application.WorksheetFunction.Min(PercentR)
         MsgBox (Min)
         MaxVolume = Application.WorksheetFunction.Max(VolR)
         MsgBox (MaxVolume)
@@ -148,6 +151,7 @@ Sub Stock_Cleanup()
                 Range("P2").Value = Ticker2
                 
             End If
+            
         Next j
         
         For k = 2 To LastRowPercent
@@ -160,11 +164,12 @@ Sub Stock_Cleanup()
             Else
                 
                 Range("Q3").Value = Min
-                Ticker2 = Cells(k, 9).Value
+                Ticker3 = Cells(k, 9).Value
                 
-                Range("P3").Value = Ticker2
+                Range("P3").Value = Ticker3
                 
             End If
+            
         Next k
         
         For l = 2 To LastRowStock
@@ -176,11 +181,12 @@ Sub Stock_Cleanup()
             
             Else
                 
-                Range("Q3").Value = MaxVolume
-                Ticker2 = Cells(l, 9).Value
+                Range("Q4").Value = MaxVolume
+                Ticker4 = Cells(l, 9).Value
                 
-                Range("P2").Value = Ticker2
+                Range("P4").Value = Ticker4
 
             End If
+
         Next l
 End Sub
