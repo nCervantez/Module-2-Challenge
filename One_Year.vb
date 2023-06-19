@@ -65,7 +65,7 @@ Sub Stock_Cleanup()
                         
                     End If
                     
-                Range("K" & StockTableRow).Value = (YearChange / YearOpen) * 100
+                Range("K" & StockTableRow).Value = (YearChange / YearOpen)
                 
                 'Will reset the variables to be used for the next ticker
                 StockTableRow = StockTableRow + 1
@@ -100,8 +100,87 @@ Sub Stock_Cleanup()
             
         Next i
         
-    
+        
+        
+        'These lines of code will find the greatest percent increase and decrease
+'-----------------------------------------------------------------------------------
+        LastRowPercent = Cells(Rows.Count, 11).End(xlUp).Row
+        LastRowStock = Cells(Rows.Count, 12).End(xlUp).Row
+        Dim PercentR As Range
+        Dim VolR As Range
+        Dim Max As Double
+        Dim Min As Double
+        Dim MaxVolume As Double
+        Dim Ticker2 As String
+        Set PercentR = Range("K2", "K" & LastRowPercent)
+        Set VolR = Range("L2", "L" & LastRowStock)
+        'Setting the greatest table
+        
+        
+        Range("O2").Value = "Greatest % Increase"
+        Range("O3").Value = "Greatest % Decrease"
+        Range("O4").Value = "Greatest Total Volume"
+        
+        Range("P1").Value = "Ticker"
+        Range("Q1").Value = "Value"
+        
+        'Excel worksheet functions that will find the highest and lowest values in my set range
+        
+        Max = Application.WorksheetFunction.Max(PercentR)
+        MsgBox (Max)
+        Min = Application.WorksheetFunction.Max(PercentR)
+        MsgBox (Min)
+        MaxVolume = Application.WorksheetFunction.Max(VolR)
+        MsgBox (MaxVolume)
+            
+        For j = 2 To LastRowPercent
+            
+            'If statement only needs to capture the max value in the range
+            'Max value already found in the range
+            If Cells(j, 10).Value <> Max Then
+                
+            
+            Else
+                
+                Range("Q2").Value = Max
+                Ticker2 = Cells(j, 9).Value
+                
+                Range("P2").Value = Ticker2
+                
+            End If
+        Next j
+        
+        For k = 2 To LastRowPercent
+            
+            'If statement only needs to capture the min value in the range
+            'min value already found in the range
+            If Cells(k, 10).Value <> Min Then
+                
+            
+            Else
+                
+                Range("Q3").Value = Min
+                Ticker2 = Cells(k, 9).Value
+                
+                Range("P3").Value = Ticker2
+                
+            End If
+        Next k
+        
+        For l = 2 To LastRowStock
+            
+            'If statement only needs to capture the max value in the range
+            'Max Stock Volume already found in the range
+            If Cells(l, 12).Value <> MaxVolume Then
+                
+            
+            Else
+                
+                Range("Q3").Value = MaxVolume
+                Ticker2 = Cells(l, 9).Value
+                
+                Range("P2").Value = Ticker2
+
+            End If
+        Next l
 End Sub
-
-
-
