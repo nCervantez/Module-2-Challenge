@@ -1,5 +1,5 @@
 Sub Stock_Cleanup()
-
+        
         'Setting the necessary variables for this script
         Dim TSVolume As Double
         Dim StockTableRow As Integer
@@ -22,12 +22,16 @@ Sub Stock_Cleanup()
         
         'These lines will insert the proper headers into the new columns
         Range("I1").Value = "Ticker"
+        Columns("I").ColumnWidth = 7
         
         Range("J1").Value = "Yearly Change"
+        Columns("J").ColumnWidth = 13
         
         Range("K1").Value = "Percent Change"
+        Columns("K").ColumnWidth = 14
         
         Range("L1").Value = "Total Stock Volume"
+        Columns("L").ColumnWidth = 18
         
         'For loop that will start at row 2 and end at the last determined row
         For i = 2 To LastRow
@@ -123,24 +127,29 @@ Sub Stock_Cleanup()
         Range("O2").Value = "Greatest % Increase"
         Range("O3").Value = "Greatest % Decrease"
         Range("O4").Value = "Greatest Total Volume"
+        Columns("O").ColumnWidth = 21
         
         Range("P1").Value = "Ticker"
+        Columns("P").ColumnWidth = 6
+        
         Range("Q1").Value = "Value"
+        Columns("Q").ColumnWidth = 8
+        
         
         'Excel worksheet functions that will find the highest and lowest values in my set range
         
         Max = Application.WorksheetFunction.Max(PercentR)
-        MsgBox (Max)
+        
         Min = Application.WorksheetFunction.Min(PercentR)
-        MsgBox (Min)
+        
         MaxVolume = Application.WorksheetFunction.Max(VolR)
-        MsgBox (MaxVolume)
+        
             
         For j = 2 To LastRowPercent
             
             'If statement only needs to capture the max value in the range
             'Max value already found in the range
-            If Cells(j, 10).Value <> Max Then
+            If Cells(j, 11).Value <> Max Then
                 
             
             Else
@@ -158,7 +167,7 @@ Sub Stock_Cleanup()
             
             'If statement only needs to capture the min value in the range
             'min value already found in the range
-            If Cells(k, 10).Value <> Min Then
+            If Cells(k, 11).Value <> Min Then
                 
             
             Else
@@ -189,4 +198,6 @@ Sub Stock_Cleanup()
             End If
 
         Next l
+
+
 End Sub
