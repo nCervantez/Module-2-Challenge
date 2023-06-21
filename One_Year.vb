@@ -71,6 +71,7 @@ Sub Stock_Cleanup()
                     
                 Range("K" & StockTableRow).Value = (YearChange / YearOpen)
                 
+                
                 'Will reset the variables to be used for the next ticker
                 StockTableRow = StockTableRow + 1
                 
@@ -198,6 +199,11 @@ Sub Stock_Cleanup()
             End If
 
         Next l
+        
+        'Sets the number formats for the appropriate cells
+        Range("K2", "K" & LastRowPercent).NumberFormat = "0.00%"
+        Range("Q2", "Q3").NumberFormat = "0.00%"
+        Range("Q4").NumberFormat = "0.00E+00"
 
 
 End Sub
