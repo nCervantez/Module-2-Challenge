@@ -109,6 +109,7 @@ Sub Stock_Cleanup()
         
         'These lines of code will find the greatest percent increase and decrease
 '-----------------------------------------------------------------------------------
+        'Setting variable to work on the greatest values table
         LastRowPercent = Cells(Rows.Count, 11).End(xlUp).Row
         LastRowStock = Cells(Rows.Count, 12).End(xlUp).Row
         Dim PercentR As Range
@@ -116,15 +117,11 @@ Sub Stock_Cleanup()
         Dim Max As Double
         Dim Min As Double
         Dim MaxVolume As Double
-        'Added seperate tickers to test
         Dim Ticker2 As String
-        Dim Ticker3 As String
-        Dim Ticker4 As String
         Set PercentR = Range("K2", "K" & LastRowPercent)
         Set VolR = Range("L2", "L" & LastRowStock)
+        
         'Setting the greatest table
-        
-        
         Range("O2").Value = "Greatest % Increase"
         Range("O3").Value = "Greatest % Decrease"
         Range("O4").Value = "Greatest Total Volume"
